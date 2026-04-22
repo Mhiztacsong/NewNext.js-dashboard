@@ -31,6 +31,11 @@ export type State = {
     status?: string[];
   };
   message?: string | null;
+  values?: {
+    customerId?: string;
+    amount?: string;
+    status?: string;
+  };
 };
 
 export async function createInvoice(prevState: State, formData: FormData) {
@@ -46,6 +51,11 @@ export async function createInvoice(prevState: State, formData: FormData) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
             message: 'Missing or invalid fields. Failed to Create Invoice.',
+            values: {
+                customerId: formData.get('customerId')?.toString(),
+                amount: formData.get('amount')?.toString(),
+                status: formData.get('status')?.toString(),
+            },
         };
     }
 
@@ -83,6 +93,11 @@ export async function updateInvoice(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to Update Invoice.',
+        values: {
+          customerId: formData.get('customerId')?.toString(),
+          amount: formData.get('amount')?.toString(),
+          status: formData.get('status')?.toString(),
+        },
     };
   }
  
